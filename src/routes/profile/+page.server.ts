@@ -11,9 +11,13 @@ export const load: PageServerLoad = async ({ cookies }) => {
     }
 
     try {
+        const response = await fetch(`${SERVER_URL}/api/get/user/${publicKey}`);
+
+        const body = await response.json();
+
         return {
-            user: "Alex",
-        };
+            user: body.nickname,
+        }
     } catch (e) {
         console.error('Error fetching user data:', e);
     }
