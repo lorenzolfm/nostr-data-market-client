@@ -3,6 +3,7 @@
 	import Features from '$lib/components/Features.svelte';
 	import Globe from '$lib/components/Globe.svelte';
 	import { goto } from '$app/navigation';
+	import { pubkey } from '$lib/store';
 
 	let publicKey: string;
 
@@ -18,7 +19,16 @@
 	async function connectWithNostr() {
 		try {
 			publicKey = await requestNostrPublicKey();
-			console.log('Connected with public key: ', publicKey);
+
+			await fetch('/api/auth', {
+				method: 'POST',
+				body: JSON.stringify({ publicKey }),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
+			goto('/profile');
 		} catch (error) {
 			console.log(error);
 		}

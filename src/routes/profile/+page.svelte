@@ -1,10 +1,15 @@
 <script>
 	import Navigation from '$lib/components/Navigation.svelte';
+	import { onMount } from 'svelte';
+	export let data;
+
+	onMount(() => {
+		console.log('Data:', data);
+	});
 
 	const userName = 'Alex';
 </script>
 
-// src/routes/profile/+page.svelte
 <div class="flex min-h-screen flex-col bg-white text-black">
 	<Navigation currentPath="/profile" />
 
