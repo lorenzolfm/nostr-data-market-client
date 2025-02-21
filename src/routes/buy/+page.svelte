@@ -59,11 +59,12 @@
 						</div>
 					</div>
 
-					<button
+					<a
+						href={`buy/${source.id}`}
 						class="w-full rounded-lg bg-black px-4 py-2 text-white transition-colors hover:bg-gray-800"
 					>
 						Buy
-					</button>
+					</a>
 				</div>
 			{/each}
 		</div>
