@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import Navigation from '$lib/components/Navigation.svelte';
 	import type { ActionData } from './$types';
 
 	export let form: ActionData;
@@ -8,6 +9,7 @@
 </script>
 
 <div class="flex min-h-screen flex-col bg-white text-black">
+	<Navigation currentPath="+page" />
 	<main class="flex flex-1 flex-col items-center justify-center p-8">
 		<div class="w-full max-w-md">
 			<h1 class="mb-8 text-4xl font-bold">Add Data Source</h1>
@@ -65,10 +67,9 @@
 							class="mr-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"
 						></span>
 					{/if}
-					{isSubmitting ? 'Adding...' : 'Add Data Source'}
+					{isSubmitting ? 'Adding...' : "Let's go!"}
 				</button>
 			</form>
 		</div>
 	</main>
 </div>
-
