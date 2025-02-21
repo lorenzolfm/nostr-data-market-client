@@ -19,8 +19,6 @@ export const actions = {
         const nickname = data.get('nickname');
         const pubkey = data.get('pubkey');
 
-        console.log(pubkey, nickname);
-
         if (!nickname) {
             return fail(400, {
                 error: 'Nickname is required',
@@ -28,32 +26,25 @@ export const actions = {
             });
         }
 
-        try {
-            const response = await fetch(`${SERVER_URL}/api/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    pubkey,
-                    nickname,
-                })
-            });
+        const response = await fetch(`${SERVER_URL}/api/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                pubkey,
+                nickname,
+            })
+        });
 
-            if (!response.ok) {
-                return fail(400, {
-                    error: 'Failed to register',
-                    values: { nickname }
-                });
-            }
-
-            throw redirect(303, '/profile');
-        } catch (error) {
-            return fail(500, {
-                error: 'Server error',
+        if (!response.ok) {
+            return fail(400, {
+                error: 'Failed to register',
                 values: { nickname }
             });
         }
+
+        throw redirect(303, '/profile');
     }
 } satisfies Actions;
 
