@@ -1,7 +1,30 @@
-<script>
+<script lang="ts">
 	import Navigation from '$lib/components/Navigation.svelte';
 	import Features from '$lib/components/Features.svelte';
 	import Globe from '$lib/components/Globe.svelte';
+	import { goto } from '$app/navigation';
+
+	let publicKey: string;
+
+	async function requestNostrPublicKey() {
+		try {
+			const publicKey = await window.nostr.getPublicKey();
+			return publicKey;
+		} catch (error) {
+			console.error('Error getting public key:', error);
+			throw error;
+		}
+	}
+	async function connectWithNostr() {
+		try {
+			publicKey = await requestNostrPublicKey();
+			console.log('Connected with public key: ', publicKey);
+		} catch (error) {
+			console.log(error);
+		}
+
+		goto('/profile');
+	}
 </script>
 
 <div class="flex min-h-screen flex-col bg-white text-black">
@@ -15,7 +38,9 @@
 				take back control.
 			</p>
 			<div class="space-x-4">
-				<a class="rounded-lg bg-black px-8 py-4 text-white hover:bg-gray-800" href="/login">Login</a
+				<button
+					class="rounded-lg bg-black px-8 py-4 text-white hover:bg-gray-800"
+					onclick={connectWithNostr}>Login</button
 				>
 			</div>
 		</div>
@@ -26,4 +51,3 @@
 
 	<Features />
 </div>
-
