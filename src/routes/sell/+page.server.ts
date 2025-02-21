@@ -1,12 +1,13 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
+import { storage } from '$lib/store';
 
 export const actions = {
     default: async ({ request, fetch, cookies }) => {
         const data = await request.formData();
         const id = data.get('id');
         const description = data.get('description');
-        const publicKey = cookies.get('nostr_public_key');
+        const publicKey = storage.get(cookies);
 
         if (!publicKey) {
             throw redirect(303, '/login');
@@ -19,33 +20,9 @@ export const actions = {
             });
         }
 
-        try {
-            const response = await fetch('http://your-backend-url/api/data-sources', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${publicKey}`
-                },
-                body: JSON.stringify({
-                    id,
-                    description,
-                    owner: publicKey
-                })
-            });
+        console.log('creating data source', id, description, publicKey);
+        console.log('oh eu vou redirect');
 
-            if (!response.ok) {
-                return fail(400, {
-                    error: 'Failed to create data source',
-                    values: { id, description }
-                });
-            }
-
-            throw redirect(303, '/profile');
-        } catch (error) {
-            return fail(500, {
-                error: 'Server error',
-                values: { id, description }
-            });
-        }
+        throw redirect(303, '/profile');
     }
 } satisfies Actions;

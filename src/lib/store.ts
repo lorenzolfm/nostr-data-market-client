@@ -26,4 +26,4 @@ function createNostrUser() {
     };
 }
 
-export const pubkey = createNostrUser();
+export const storage = createNostrUser();

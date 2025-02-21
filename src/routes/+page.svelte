@@ -3,9 +3,8 @@
 	import Features from '$lib/components/Features.svelte';
 	import Globe from '$lib/components/Globe.svelte';
 	import { goto } from '$app/navigation';
-	import { pubkey } from '$lib/store';
 
-	let publicKey: string;
+	let pubkey: string;
 
 	async function requestNostrPublicKey() {
 		try {
@@ -18,17 +17,23 @@
 	}
 	async function connectWithNostr() {
 		try {
-			publicKey = await requestNostrPublicKey();
+			pubkey = await requestNostrPublicKey();
 
-			await fetch('/api/auth', {
+			const res = await fetch('/api/auth', {
 				method: 'POST',
-				body: JSON.stringify({ publicKey }),
+				body: JSON.stringify({ pubkey }),
 				headers: {
 					'Content-Type': 'application/json'
 				}
 			});
 
-			goto('/profile');
+			const body = await res.json();
+
+			if (body.known === false) {
+				return goto('/register');
+			} else {
+				return goto('/profile');
+			}
 		} catch (error) {
 			console.log(error);
 		}

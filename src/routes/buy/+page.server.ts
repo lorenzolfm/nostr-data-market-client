@@ -1,7 +1,7 @@
 // src/routes/buy/+page.server.ts
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { pubkey } from '$lib/store';
+import { storage } from '$lib/store';
 
 // Mock data - replace with actual API call
 const mockDataSources = [
@@ -32,9 +32,9 @@ const mockDataSources = [
 ];
 
 export const load: PageServerLoad = async ({ cookies, fetch }) => {
-    pubkey.get(cookies);
+    storage.get(cookies);
 
-    if (!pubkey) {
+    if (!storage) {
         throw error(401, 'Unauthorized');
     }
 
