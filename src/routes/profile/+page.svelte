@@ -46,8 +46,9 @@
 				</p>
 			</a>
 
-			<button
+			<a
 				class="group relative flex h-64 flex-col items-center justify-center rounded-xl border-2 border-black bg-white p-8 text-center transition-colors duration-300 hover:bg-black"
+				href="/buy"
 			>
 				<div
 					class="absolute inset-0 flex items-center justify-center opacity-10 group-hover:opacity-5"
@@ -66,7 +67,7 @@
 				<p class="relative text-gray-600 group-hover:text-gray-300">
 					Browse verified datasets from trusted sellers
 				</p>
-			</button>
+			</a>
 		</div>
 
 		<!-- Quick Stats -->
