@@ -1,13 +1,14 @@
-<script>
+<script lang="ts">
 	import Navigation from '$lib/components/Navigation.svelte';
 	import { onMount } from 'svelte';
 	export let data;
+	let userName: string;
 
 	onMount(() => {
-		console.log('Data:', data);
-	});
+		if (!data.user) return;
 
-	const userName = 'Alex';
+		userName = data.user;
+	});
 </script>
 
 <div class="flex min-h-screen flex-col bg-white text-black">
@@ -22,8 +23,9 @@
 		</div>
 
 		<div class="grid w-full grid-cols-1 gap-8 md:grid-cols-2">
-			<button
+			<a
 				class="group relative flex h-64 flex-col items-center justify-center rounded-xl border-2 border-black bg-white p-8 text-center transition-colors duration-300 hover:bg-black"
+				href="/sell"
 			>
 				<div
 					class="absolute inset-0 flex items-center justify-center opacity-10 group-hover:opacity-5"
@@ -42,7 +44,7 @@
 				<p class="relative text-gray-600 group-hover:text-gray-300">
 					List your datasets and reach global buyers
 				</p>
-			</button>
+			</a>
 
 			<button
 				class="group relative flex h-64 flex-col items-center justify-center rounded-xl border-2 border-black bg-white p-8 text-center transition-colors duration-300 hover:bg-black"
