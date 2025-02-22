@@ -1,6 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import { storage } from '$lib/store';
+import { SERVER_URL } from '$env/static/private';
 
 export const actions = {
     default: async ({ request, fetch, cookies }) => {
@@ -20,8 +21,7 @@ export const actions = {
             });
         }
 
-        console.log('creating data source', id, description, publicKey);
-        console.log('oh eu vou redirect');
+        //const res = await fetch(`${SERVER_URL}/api/sensor/register`)
 
         throw redirect(303, '/profile');
     }

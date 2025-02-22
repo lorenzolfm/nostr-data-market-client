@@ -14,10 +14,17 @@ export const load = async ({ cookies }) => {
 };
 
 export const actions = {
-    default: async ({ request, fetch }) => {
+    default: async ({ request, fetch, cookies }) => {
         const data = await request.formData();
         const nickname = data.get('nickname');
-        const pubkey = data.get('pubkey');
+        const pubkey = storage.get(cookies);
+
+        if (!pubkey) {
+            return fail(400, {
+                error: 'No pubkey',
+                values: { pubkey }
+            });
+        }
 
         if (!nickname) {
             return fail(400, {
