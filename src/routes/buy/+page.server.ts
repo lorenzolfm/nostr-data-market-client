@@ -2,6 +2,7 @@
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { storage } from '$lib/store';
+import { SERVER_URL } from '$env/static/private';
 
 // Mock data - replace with actual API call
 const mockDataSources = [
@@ -32,17 +33,22 @@ const mockDataSources = [
 ];
 
 export const load: PageServerLoad = async ({ cookies, fetch }) => {
-    storage.get(cookies);
+    const res = await fetch(`${SERVER_URL}/api/list-sensors`);
 
-    if (!storage) {
-        throw error(401, 'Unauthorized');
-    }
+    const data = (await res.json()).sensors;
 
-    // In real implementation, fetch from your backend:
-    // const response = await fetch('http://your-backend-url/api/data-sources');
-    // const dataSources = await response.json();
+    const sensors = data.map((sensor) => {
+        return {
+            id: sensor.id,
+            description: sensor.description,
+            owner: sensor.owner_pubkey,
+            price: Math.floor(Math.random() * 10) + 1,
+            location: 'ACATE',
+            updateFrequency: '10 secs'
+        }
+    })
 
     return {
-        dataSources: mockDataSources
+        dataSources: sensors
     };
 };
