@@ -24,10 +24,6 @@ const mockDataSources = {
 };
 
 export const load: PageServerLoad = async ({ params, cookies }) => {
-    // In real implementation, fetch from your backend:
-    // const response = await fetch(`http://your-backend-url/api/data-sources/${params.id}`);
-    // const sensor = await response.json();
-
     const sensor = mockDataSources[params.id];
 
     if (!sensor) {

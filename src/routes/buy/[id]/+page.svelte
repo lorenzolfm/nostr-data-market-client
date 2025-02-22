@@ -39,7 +39,7 @@
 				</div>
 				<div class="flex items-center text-sm">
 					<span class="w-24 text-gray-500">Price:</span>
-					<span>{sensor.price} credits per day</span>
+					<span>{sensor.price} sats per day</span>
 				</div>
 			</div>
 		</div>
@@ -63,7 +63,7 @@
 						Selected period: {totalDays} days
 					</p>
 					<p class="text-lg font-bold">
-						Total: {totalPrice.toFixed(2)} credits
+						Total: {totalPrice.toFixed(2)} sats
 					</p>
 				</div>
 			{/if}
@@ -83,4 +83,3 @@
 		</form>
 	</main>
 </div>
-
