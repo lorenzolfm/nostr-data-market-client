@@ -8,9 +8,9 @@ export const actions = {
         const data = await request.formData();
         const id = data.get('id');
         const description = data.get('description');
-        const publicKey = storage.get(cookies);
+        const pubkey = storage.get(cookies);
 
-        if (!publicKey) {
+        if (!pubkey) {
             throw redirect(303, '/login');
         }
 
@@ -21,7 +21,13 @@ export const actions = {
             });
         }
 
-        //const res = await fetch(`${SERVER_URL}/api/sensor/register`)
+        const res = await fetch(`${SERVER_URL}/api/register-sensor`, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            body: JSON.stringify({ id, description, pubkey }),
+        })
 
         throw redirect(303, '/profile');
     }
