@@ -5,13 +5,13 @@ import { storage } from '$lib/store';
 
 // Mock data - replace with actual API call
 const mockDataSources = {
-    "temp_sensor_001": {
-        id: "temp_sensor_001",
-        description: "Temperature sensor in downtown area. Updates every 5 minutes with precision of 0.1°C",
-        owner: "npub1abc...",
+    "!1325302301": {
+        id: "!1325302301",
+        description: "George''s House( Lagoa) - temperature humidity",
+        owner: "b992c5571aec8feb2f1eed537e3a0bcaaf87c95d8cb0ae9c726e9f3630c36f4e",
         price: "5",
-        location: "Downtown",
-        updateFrequency: "5 min"
+        location: "ACATE",
+        updateFrequency: "10 secs"
     },
     "humidity_243": {
         id: "humidity_243",
@@ -24,12 +24,6 @@ const mockDataSources = {
 };
 
 export const load: PageServerLoad = async ({ params, cookies }) => {
-    const publicKey = storage.get(cookies);
-
-    if (!publicKey) {
-        throw error(401, 'Unauthorized');
-    }
-
     // In real implementation, fetch from your backend:
     // const response = await fetch(`http://your-backend-url/api/data-sources/${params.id}`);
     // const sensor = await response.json();
